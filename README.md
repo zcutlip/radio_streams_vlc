@@ -107,7 +107,7 @@ def get_station_list():
     c3 = '\x1b[38;2;220;118;51m'
     res = '\x1b[0m'
 
-    with open('/home/foo/scripts/vlc_radio_wrapper/csv/stations.csv') as csv_file:
+    with open('/home/foo/scripts/vlc_radio_wrapper/data/stations.csv') as csv_file:
         csv_rec_list = list(enumerate(reader(csv_file), 1))
         for num, rec in csv_rec_list:
             print(f'{c1}{num:>2}{res}  {c2}{rec[0]:}{res}  {c3}{rec[1]}{res}')
