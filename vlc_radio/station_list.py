@@ -5,6 +5,7 @@ from csv import reader
 
 urls = {}  # number selection: station URL
 
+
 def get_station_list():
     c1 = '\x1b[38;2;72;201;176m'  # dark cyan; RGB-format text: 72, 201, 176
     c2 = '\x1b[38;2;244;208;63m'  # yellow
