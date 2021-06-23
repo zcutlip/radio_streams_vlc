@@ -64,6 +64,9 @@ def station_selection():
         vlc_argv.extend(['--intf', 'ncurses'])
 
     vlc_argv.append(entry.url)
+    print(f"Playing: {entry.ansi_colorized()}")
+    print("")
+    print("")
     run(vlc_argv, check=True)  # pass args
 
 
