@@ -13,6 +13,13 @@ from .station_list import StationEntry, StationList
 def vlc_parse_args():
     parser = ArgumentParser()
     parser.add_argument(
+        "station_number",
+        help="Index of station to play.",
+        type=int,
+        nargs="?",  # make this arg optional
+        default=-1,
+    )
+    parser.add_argument(
         "--no-curses",
         help="Disable ncurses interface, run VLC in GUI mode",
         action="store_true",
@@ -43,8 +50,11 @@ def station_selection():
     station_list = StationList()
     vlc_path = get_vlc_path()
     '''Play selected internet radio station.'''
-    station_list.print_menu()
-    station_num = int(input('Enter item number: '))  # input station number
+    station_num = options.station_number
+    if station_num < 1:
+        station_list.print_menu()
+        station_num = int(input('Enter item number: '))  # input station number
+
     entry: StationEntry = station_list[station_num]
 
     vlc_argv = [vlc_path]
