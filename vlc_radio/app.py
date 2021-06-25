@@ -2,9 +2,10 @@
 '''Play internet radio selection in VLC media player.
 Shift + M --> meta-info; q --> quit'''
 import os
+import sys
 
 from argparse import ArgumentParser
-from subprocess import run
+from subprocess import CalledProcessError, run
 
 from .ascii_art import get_ascii_art
 from .station_list import StationEntry, StationList
@@ -67,7 +68,12 @@ def station_selection():
     print(f"Playing: {entry.ansi_colorized()}")
     print("")
     print("")
-    run(vlc_argv, check=True)  # pass args
+    try:
+        run(vlc_argv, check=True)  # pass args
+    except CalledProcessError as e:
+        print(f"Failed to run {vlc_path}", file=sys.stderr)
+        return e.returncode
+    return 0
 
 
 if __name__ == '__main__':
