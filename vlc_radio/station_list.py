@@ -44,9 +44,12 @@ class StationEntry:
 
 class StationList(dict):
 
-    def __init__(self, substring=""):
+    def __init__(self, substring="", first_match=False):
         super().__init__()
-        self._populate_stations(substring)
+        if not substring:
+            # first match doesn't make sense if substring is emtpy string
+            first_match = False
+        self._populate_stations(substring, first_match)
         self._exact_match = len(self) == 1
 
     @property
@@ -57,7 +60,7 @@ class StationList(dict):
             _match = self[num]
         return _match
 
-    def _populate_stations(self, substring):
+    def _populate_stations(self, substring, first_match: bool):
         with files(data).joinpath(DEFAULT_STATIONS_CSV).open("r") as _file:
             _reader = reader(_file)
             for number, csv_record in enumerate(_reader, 1):
@@ -68,6 +71,8 @@ class StationList(dict):
                 url = csv_record[2]
                 entry = StationEntry(name, description, url)
                 self[number] = entry
+                if first_match:
+                    break
 
     def ansi_colorized_line(self, number):
         entry: StationEntry = self[number]
