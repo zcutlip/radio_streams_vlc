@@ -15,8 +15,13 @@ def vlc_parse_args():
     parser = ArgumentParser()
     parser.add_argument(
         "station",
-        help="Index or (partial) name of station to play.",
+        help="Index or (partial) name of station to play",
         nargs="?",  # make this arg optional
+    )
+    parser.add_argument(
+        "-f", "--first-match",
+        help="Choose first partial station name match",
+        action="store_true"
     )
     parser.add_argument(
         "--no-curses",
@@ -56,8 +61,9 @@ def station_selection():
         except ValueError:
             station_text = options.station
 
-    station_list = StationList(substring=station_text)
+    station_list = StationList(substring=station_text, first_match=options.first_match)
     entry: StationEntry = station_list.match
+
     if not entry:
         if station_num < 1:
             station_list.print_menu()
