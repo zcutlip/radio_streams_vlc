@@ -44,15 +44,26 @@ class StationEntry:
 
 class StationList(dict):
 
-    def __init__(self):
+    def __init__(self, substring=""):
         super().__init__()
-        self._populate_stations()
+        self._populate_stations(substring)
+        self._exact_match = len(self) == 1
 
-    def _populate_stations(self):
+    @property
+    def match(self):
+        _match = None
+        if self._exact_match:
+            num = list(self.keys())[0]
+            _match = self[num]
+        return _match
+
+    def _populate_stations(self, substring):
         with files(data).joinpath(DEFAULT_STATIONS_CSV).open("r") as _file:
             _reader = reader(_file)
             for number, csv_record in enumerate(_reader, 1):
                 name = csv_record[0]
+                if substring not in name.lower():
+                    continue
                 description = csv_record[1]
                 url = csv_record[2]
                 entry = StationEntry(name, description, url)

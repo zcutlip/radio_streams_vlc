@@ -14,11 +14,9 @@ from .station_list import StationEntry, StationList
 def vlc_parse_args():
     parser = ArgumentParser()
     parser.add_argument(
-        "station_number",
-        help="Index of station to play.",
-        type=int,
+        "station",
+        help="Index or (partial) name of station to play.",
         nargs="?",  # make this arg optional
-        default=-1,
     )
     parser.add_argument(
         "--no-curses",
@@ -48,15 +46,25 @@ def get_vlc_path():
 def station_selection():
     options = vlc_parse_args()
     print(get_ascii_art())  # get color-schemed ASCII art heading
-    station_list = StationList()
     vlc_path = get_vlc_path()
     '''Play selected internet radio station.'''
-    station_num = options.station_number
-    if station_num < 1:
-        station_list.print_menu()
-        station_num = int(input('Enter item number: '))  # input station number
+    station_text = ""
+    station_num = -1
+    if options.station:
+        try:
+            station_num = int(options.station)
+        except ValueError:
+            station_text = options.station
 
-    entry: StationEntry = station_list[station_num]
+    station_list = StationList(substring=station_text)
+    entry: StationEntry = station_list.match
+    if not entry:
+        if station_num < 1:
+            station_list.print_menu()
+            station_num = int(input('Enter item number: '))  # input station number
+            entry = station_list[station_num]
+        else:
+            entry = station_list[station_num]
 
     vlc_argv = [vlc_path]
     if options.no_curses is False:
