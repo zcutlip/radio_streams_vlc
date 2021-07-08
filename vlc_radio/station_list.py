@@ -49,7 +49,21 @@ class StationList(dict):
         if not substring:
             # first match doesn't make sense if substring is emtpy string
             first_match = False
-        self._populate_stations(substring, first_match)
+
+        try_again = True
+        while try_again:
+            # If we're doing a substring match, we need to set the try_again flag
+            # if not, we shouldn't try again
+            try_again = len(substring) > 0
+            self._populate_stations(substring, first_match)
+            if len(self):
+                # found at least one substring match (or no substring was provided)
+                break
+            # No substring matches, so eliminate the substring
+            # TODO: Should we just raise an exception here?
+            substring = ""
+            continue
+
         self._exact_match = len(self) == 1
 
     @property
