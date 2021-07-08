@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 '''Print color-schemed internet radio station list.'''
+import re
 from csv import reader
 from importlib.resources import files
 
@@ -74,12 +75,24 @@ class StationList(dict):
             _match = self[num]
         return _match
 
+    def _collapse_string(self, strarg):
+        """
+        Collapse all whitespace out of a string,
+        and normalize to lower case
+        """
+        rex = re.compile(r'\W+')
+        result = rex.sub('', strarg)
+        result = result.lower()
+        return result
+
     def _populate_stations(self, substring, first_match: bool):
+        substring = self._collapse_string(substring)
         with files(data).joinpath(DEFAULT_STATIONS_CSV).open("r") as _file:
             _reader = reader(_file)
             for number, csv_record in enumerate(_reader, 1):
                 name = csv_record[0]
-                if substring not in name.lower():
+                _name = self._collapse_string(name)
+                if substring not in _name:
                     continue
                 description = csv_record[1]
                 url = csv_record[2]
