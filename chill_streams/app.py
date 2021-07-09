@@ -67,7 +67,10 @@ def station_selection():
     if not entry:
         if station_num < 1:
             station_list.print_menu()
-            station_num = int(input('Enter item number: '))  # input station number
+            inp = input('Enter item number: ')
+            if inp in ['Q', 'q']:
+                return 0
+            station_num = int(inp)
             entry = station_list[station_num]
         else:
             entry = station_list[station_num]
