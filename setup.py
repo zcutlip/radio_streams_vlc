@@ -23,5 +23,5 @@ setup(
     },
     python_requires=">=3.7",
     install_requires=[],
-    package_data={"chill_stations": ["data/*"]},
+    package_data={"chill_streams": ["data/*"]},
 )
