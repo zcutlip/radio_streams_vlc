@@ -1,9 +1,9 @@
-from .app import station_selection
+from .app import vlc_main
 
 
 def main():
     try:
-        return station_selection()
+        return vlc_main()
     except KeyboardInterrupt:
         print("Keyboard interrupt. Quitting.")
         exit(0)
