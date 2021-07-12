@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 '''Play internet radio selection in VLC media player.
 Shift + M --> meta-info; q --> quit'''
-import os
+
+import subprocess
 import sys
 
 from argparse import ArgumentParser
-from subprocess import CalledProcessError, run
+
 
 from .ascii_art import get_ascii_art
+from .shell_script import VLCShellScript, VLCShellScriptException
 from .station_list import StationEntry, StationList
 
 
@@ -33,25 +35,9 @@ def vlc_parse_args():
     return parsed
 
 
-def get_vlc_path():
-    SNAP_PATH = '/snap/bin/vlc'
-    """
-    Temporary hack to support running on other OSes.
-
-    Original project calls abs path to Ubuntu VLC snap,
-    so in case that's important, return that if available
-    otherwise return just 'vlc'
-    """
-    vlc_path = 'vlc'
-    if os.path.exists(SNAP_PATH):
-        vlc_path = SNAP_PATH
-    return vlc_path
-
-
-def station_selection():
-    options = vlc_parse_args()
+def station_selection(options):
     print(get_ascii_art())  # get color-schemed ASCII art heading
-    vlc_path = get_vlc_path()
+    vlc_path = VLCShellScript.locate_vlc()
     '''Play selected internet radio station.'''
     station_text = ""
     station_num = -1
@@ -93,5 +79,18 @@ def station_selection():
     return 0
 
 
+def vlc_main():
+    options = vlc_parse_args()
+    if options.write_shell_script:
+        try:
+            vlcs = VLCShellScript()
+            vlcs.write_script("~/.local/bin")
+        except VLCShellScriptException as e:
+            print(str(e))
+            return -1
+    else:
+        station_selection(options)
+
+
 if __name__ == '__main__':
-    station_selection()
+    vlc_main()
