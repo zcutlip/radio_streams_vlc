@@ -30,6 +30,11 @@ def vlc_parse_args():
         help="Disable ncurses interface, run VLC in GUI mode",
         action="store_true",
     )
+    parser.add_argument(
+        "--write-shell-script",
+        help="Write a shell script that sets up environment and executes vlc-radio",
+        action="store_true"
+    )
 
     parsed = parser.parse_args()
     return parsed
@@ -72,8 +77,8 @@ def station_selection(options):
     print("")
     print("")
     try:
-        run(vlc_argv, check=True)  # pass args
-    except CalledProcessError as e:
+        subprocess.run(vlc_argv, check=True)  # pass args
+    except subprocess.CalledProcessError as e:
         print(f"Failed to run {vlc_path}", file=sys.stderr)
         return e.returncode
     return 0
