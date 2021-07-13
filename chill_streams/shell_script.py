@@ -1,11 +1,17 @@
 import os
 import subprocess
 
+from importlib.resources import files
+
+from . import data
 from .script_path import get_setuptools_script_dir
 
 
 class VLCShellScriptException(Exception):
     pass
+
+
+SCRIPT_TEMPLATE = "vlc-radio-template.sh"
 
 
 class VLCShellScript:
@@ -40,6 +46,12 @@ class VLCShellScript:
         if not script_path:
             raise VLCShellScriptException("Can't locate script entrypoint")
         return script_path
+
+    def _read_template(self):
+        template = ""
+        with files(data).joinpath(SCRIPT_TEMPLATE).open("r") as _file:
+            template = _file.read()
+        return template
 
     def write_script(self, location):
         location = os.path.expanduser(location)
