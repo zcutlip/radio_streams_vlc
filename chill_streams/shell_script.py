@@ -61,12 +61,13 @@ class VLCShellScript:
         vlc_dir = os.path.dirname(self._vlc_path)
         radio_cmd = f"{self._vlc_radio_path} \"$@\""
         script_lines = [
-            "#!/usr/bin/env sh",
             "",
             "export PATH=\"${{PATH}}\":{}".format(vlc_dir),
             "",
             radio_cmd,
             ""
         ]
+        script_template = self._read_template()
+        script = script_template + "\n".join(script_lines)
         with open(os.open(script_path, os.O_CREAT | os.O_WRONLY | os.O_TRUNC, 0o755), "w") as f:
-            f.write("\n".join(script_lines))
+            f.write(script)
