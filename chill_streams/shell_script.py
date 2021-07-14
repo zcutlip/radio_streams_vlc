@@ -1,10 +1,10 @@
 import os
-import subprocess
 
 from importlib.resources import files
 
 from . import data
 from .script_path import get_setuptools_script_dir
+from .vlc import VLCLocator, VLCException
 
 
 class VLCShellScriptException(Exception):
@@ -17,22 +17,17 @@ SCRIPT_TEMPLATE = "vlc-radio-template.sh"
 class VLCShellScript:
 
     def __init__(self):
-        self._vlc_path = self.locate_vlc()
-        if not self._vlc_path:
-            raise VLCShellScriptException("Unable to locate path to VLC")
+        self._vlc_path = self._locate_vlc()
         self._vlc_radio_path = self._locate_vlc_radio()
 
     @staticmethod
-    def locate_vlc():
-        vlc_path = None
-        cmd = ["which", "vlc"]
+    def _locate_vlc():
+        locator = VLCLocator()
         try:
-            out = subprocess.check_output(cmd)
-        except subprocess.CalledProcessError:
-            out = None
-        if out:
-            vlc_path = out.decode("utf-8").strip()
-        return vlc_path
+            location = locator.location
+        except VLCException as e:
+            raise VLCShellScriptException(str(e)) from e
+        return location
 
     def _locate_vlc_radio(self):
         script_path = None
