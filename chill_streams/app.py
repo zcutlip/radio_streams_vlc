@@ -2,7 +2,6 @@
 '''Play internet radio selection in VLC media player.
 Shift + M --> meta-info; q --> quit'''
 
-import subprocess
 import sys
 
 from argparse import ArgumentParser
@@ -11,6 +10,7 @@ from argparse import ArgumentParser
 from .ascii_art import get_ascii_art
 from .shell_script import VLCShellScript, VLCShellScriptException
 from .station_list import StationEntry, StationList
+from .vlc import VLC
 
 
 def vlc_parse_args():
@@ -42,7 +42,6 @@ def vlc_parse_args():
 
 def station_selection(options):
     print(get_ascii_art())  # get color-schemed ASCII art heading
-    vlc_path = VLCShellScript.locate_vlc()
     '''Play selected internet radio station.'''
     station_text = ""
     station_num = -1
@@ -66,22 +65,18 @@ def station_selection(options):
         else:
             entry = station_list[station_num]
 
-    vlc_argv = [vlc_path]
-    if options.no_curses is False:
-        # Use curses unless user specified not to
-        # For some reason ncurses is broken on macOS + Apple Silicon + Homebrew VLC cask
-        vlc_argv.extend(['--intf', 'ncurses'])
+    curses = not options.no_curses
 
-    vlc_argv.append(entry.url)
     print(f"Playing: {entry.ansi_colorized()}")
     print("")
     print("")
-    try:
-        subprocess.run(vlc_argv, check=True)  # pass args
-    except subprocess.CalledProcessError as e:
-        print(f"Failed to run {vlc_path}", file=sys.stderr)
-        return e.returncode
-    return 0
+
+    vlc = VLC(args=[entry.url], ncurses=curses)
+    _, ret = vlc.run()
+    if ret != 0:
+        print(f"Failed to run {vlc.location}", file=sys.stderr)
+
+    return ret
 
 
 def vlc_main():
