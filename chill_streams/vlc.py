@@ -1,6 +1,9 @@
-from typing import List
+import time
+
+from typing import List, Tuple
 
 from .cmd import CMD
+from .station_list import StationEntry
 
 
 class VLCException(Exception):
@@ -34,8 +37,11 @@ class VLCLocator(CMD):
 
 class VLC(CMD):
     CMD_NAME = "vlc"
+    PAUSE_SECS = 2.0
 
-    def __init__(self, args: List[str] = [], ncurses=True, vlc_path=None):
+    def __init__(self, entry: StationEntry, ncurses: bool = True, vlc_path: str = None, extra_args: List[str] = []):
+        self.entry = entry
+        args = [entry.url]
         if ncurses:
             args.extend(["--intf", "ncurses"])
         super().__init__(args)
@@ -50,6 +56,18 @@ class VLC(CMD):
     @property
     def location(self):
         return self._location
+
+    def run(self) -> Tuple[bytes, str]:
+        self._display_and_pause(self.PAUSE_SECS)
+        return super().run()
+
+    def _display_and_pause(self, sec):
+        print("")
+        print("")
+        print(f"Playing: {self.entry.ansi_colorized()}")
+        print("")
+        print("")
+        time.sleep(sec)
 
     def _find_vlc(self):
         locator = VLCLocator()

@@ -67,11 +67,7 @@ def station_selection(options):
 
     curses = not options.no_curses
 
-    print(f"Playing: {entry.ansi_colorized()}")
-    print("")
-    print("")
-
-    vlc = VLC(args=[entry.url], ncurses=curses)
+    vlc = VLC(entry, ncurses=curses)
     _, ret = vlc.run()
     if ret != 0:
         print(f"Failed to run {vlc.location}", file=sys.stderr)
