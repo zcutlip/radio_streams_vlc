@@ -1,5 +1,5 @@
 __title__ = "VLC Radio"
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __summary__ = "Coming soon"
 
 """
