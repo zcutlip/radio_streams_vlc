@@ -39,11 +39,12 @@ def vlc_parse_args():
     )
     parser.add_argument(
         "--version",
-        help="Print version string and exit.",
+        help="Print version string and exit",
         action='version',
         version=str(CSAbout())
     )
     parser.add_argument(
+        # just print the bare version string
         "--bare-version",
         help=argparse.SUPPRESS,
         action='version',
