@@ -80,7 +80,7 @@ def station_selection(options):
         else:
             entry = station_list[station_num]
 
-    curses = not options.no_curses
+    curses = not options.gui
 
     vlc = VLC(entry, ncurses=curses)
     _, ret = vlc.run()
