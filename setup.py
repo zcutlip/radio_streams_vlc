@@ -8,7 +8,7 @@ with open("README.md", "r") as fp:
     long_description = fp.read()
 
 setup(
-    name="chill-streams",
+    name=about["__title__"],
     version=about["__version__"],
     description=about["__summary__"],
     long_description=long_description,
