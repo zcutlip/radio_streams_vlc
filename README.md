@@ -1,4 +1,4 @@
-# Radio Streams VLC
+# Chill Electronica Streams
 
 ## Description
 
