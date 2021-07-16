@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is a directory of chill electronica streaming radion stations. If you like [DEF CON radio](https://somafm.com/defcon/) or [Groove Salad](https://somafm.com/groovesalad/) on Soma.fm, you know what this is about.
+This project is a directory of chill electronica streaming radio stations. If you like [DEF CON radio](https://somafm.com/defcon/) or [Groove Salad](https://somafm.com/groovesalad/) on Soma.fm, this is for you.
 
 This project provides three things:
 
