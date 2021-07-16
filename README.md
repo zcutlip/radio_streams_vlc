@@ -10,6 +10,12 @@ This project provides three things:
 2. A Python API for accessing that directory
 3. A command-line utility to launch VLC a selected URLs
 
+## Installation
+
+You can install directly from GitHub:
+
+`pip install --user git+https://github.com/zcutlip/chill_streams.git`
+
 ## CLI utility: `vlc-radio`
 
 The `vlc-radio` utility starts up VLC Media Player playing one of the stations in the directory.
