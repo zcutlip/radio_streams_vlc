@@ -64,3 +64,7 @@ Note that case and whitespace is ignored when asking for a station, so "DEF CON"
 If you just want the first match (e.g., "groove salad" not "groove salad classic"), use the `-f` or `--first-match` option:
 
 ![first match](images/vlc-radio-groovesalad-first-match.gif)
+
+## Credit
+
+Thanks to [nick3499](https://github.com/nick3499) for the [original project](https://github.com/nick3499/radio_streams_vlc) this is forked from, and for curating a comprehensive directory of shoutcast stations.
