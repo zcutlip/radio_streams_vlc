@@ -1,6 +1,4 @@
-__title__ = "VLC Radio"
-__version__ = "0.1.1"
-__summary__ = "Coming soon"
+__version__ = "0.1.1.dev0"
 
 """
 See PEP 440 for version scheme
