@@ -10,11 +10,12 @@ from argparse import ArgumentParser
 from .ascii_art import get_ascii_art
 from .shell_script import VLCShellScript, VLCShellScriptException
 from .station_list import StationEntry, StationList
+from .version import CSAbout
 from .vlc import VLC
 
 
 def vlc_parse_args():
-    parser = ArgumentParser()
+    parser = ArgumentParser(description=str(CSAbout()))
     parser.add_argument(
         "station",
         help="Index or (partial) name of station to play",
@@ -34,6 +35,12 @@ def vlc_parse_args():
         "--write-shell-script",
         help="Write a shell script that sets up environment and executes vlc-radio",
         action="store_true"
+    )
+    parser.add_argument(
+        "--version",
+        help="Print version string and exit.",
+        action='version',
+        version=str(CSAbout())
     )
 
     parsed = parser.parse_args()
