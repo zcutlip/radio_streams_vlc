@@ -21,7 +21,8 @@ setup(
     entry_points={
         "console_scripts": ["vlc-radio=chill_streams.cli:main"],
     },
-    python_requires=">=3.7",
+    # require python >= 3.9 due to importlib.resources.files
+    python_requires=">=3.9",
     install_requires=[],
     package_data={"chill_streams": ["data/*"]},
 )
