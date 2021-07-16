@@ -8,7 +8,7 @@ This project provides three things:
 
 1. A directory of streaming radio station URLs
 2. A Python API for accessing that directory
-3. A command-line utility to launch VLC a selected URLs
+3. A command-line utility to present a menu and launch VLC with a selected URL
 
 ## Installation
 
