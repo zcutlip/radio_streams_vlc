@@ -62,4 +62,5 @@ If you know the name or partial name of a station, you can ask for it. If the ma
 Note that case and whitespace is ignored when asking for a station, so "DEF CON" and "defcon" are equivalent.
 
 If you just want the first match (e.g., "groove salad" not "groove salad classic"), use the `-f` or `--first-match` option:
+
 ![first match](images/vlc-radio-groovesalad-first-match.gif)
