@@ -2,6 +2,7 @@
 '''Play internet radio selection in VLC media player.
 Shift + M --> meta-info; q --> quit'''
 
+import argparse
 import sys
 
 from argparse import ArgumentParser
@@ -41,6 +42,12 @@ def vlc_parse_args():
         help="Print version string and exit.",
         action='version',
         version=str(CSAbout())
+    )
+    parser.add_argument(
+        "--bare-version",
+        help=argparse.SUPPRESS,
+        action='version',
+        version=CSAbout().version
     )
 
     parsed = parser.parse_args()
