@@ -1,4 +1,6 @@
+__title__ = "Chill Streams"
 __version__ = "0.1.1.dev0"
+__summary__ = "Chill electronica streaming"
 
 """
 See PEP 440 for version scheme
