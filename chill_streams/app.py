@@ -27,7 +27,7 @@ def vlc_parse_args():
         action="store_true"
     )
     parser.add_argument(
-        "--no-curses",
+        "--gui",
         help="Disable ncurses interface, run VLC in GUI mode",
         action="store_true",
     )
