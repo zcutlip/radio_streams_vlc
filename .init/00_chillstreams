@@ -1,0 +1,2 @@
+# see README for how this gets sourced
+alias cdchillstr='cd "$PROJSRC/chill_streams"'
