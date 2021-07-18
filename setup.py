@@ -23,6 +23,6 @@ setup(
     },
     # require python >= 3.9 due to importlib.resources.files
     python_requires=">=3.9",
-    install_requires=[],
+    install_requires=["python-singleton-metaclasses"],
     package_data={"chill_streams": ["data/*"]},
 )
