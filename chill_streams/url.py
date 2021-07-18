@@ -11,6 +11,9 @@ list of domains known to support TLS.
 
 This makes it possible to continue updating 'stations.csv' from upstream or other
 sources but also upgrade to HTTPS where possible
+
+TODO: handle URLs that are IP address only
+TODO: handle URLs that are on ports other than 80 that support HTTPS on a port other than 443
 """
 
 
