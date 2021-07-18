@@ -5,7 +5,7 @@ from csv import reader
 from importlib.resources import files
 
 from . import data
-
+from .url import URL
 
 DEFAULT_STATIONS_CSV = "stations.csv"
 # dark cyan; RGB-format text: 72, 201, 176
@@ -20,7 +20,7 @@ class StationEntry:
     def __init__(self, name, description, url):
         self._name = name
         self._description = description
-        self._url = url
+        self._url = URL(url)
 
     @property
     def name(self):
@@ -32,7 +32,7 @@ class StationEntry:
 
     @property
     def url(self):
-        return self._url
+        return str(self._url)
 
     def ansi_colorized(self):
         c2 = ANSI_YELO
