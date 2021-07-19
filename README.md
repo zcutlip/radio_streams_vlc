@@ -65,6 +65,14 @@ If you just want the first match (e.g., "groove salad" not "groove salad classic
 
 ![first match](images/vlc-radio-groovesalad-first-match.gif)
 
+### Bootstrap Script
+
+You can use the `--write-shell-script` option to write a shell script that will boostrap `vlc-radio` in minimal environments. This is useful, for example, to create a dedicated terminal profile that just runs `vlc-radio` with specific station. Since no shell gets initialized, `$PATH` may not be set, and the location of VLC may not be known.
+
+Below is such a profile in iTerm2:
+
+![iTerm2 dedicated profile](images/iterm2-profiles.png)
+
 ## Credit
 
 Thanks to [nick3499](https://github.com/nick3499) for the [original project](https://github.com/nick3499/radio_streams_vlc) this is forked from, and for curating a comprehensive directory of shoutcast stations.
