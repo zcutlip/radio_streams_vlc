@@ -19,7 +19,10 @@ setup(
     license="MIT",
     packages=find_packages(),
     entry_points={
-        "console_scripts": ["vlc-radio=chill_streams.cli:main"],
+        "console_scripts": [
+            "vlc-radio=chill_streams.cli:main",
+            "sltool=chill_streams.cli:sl_main"
+        ],
     },
     # require python >= 3.9 due to importlib.resources.files
     python_requires=">=3.9",
