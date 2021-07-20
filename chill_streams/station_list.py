@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-'''Print color-schemed internet radio station list.'''
 import re
+from argparse import ArgumentParser
 from csv import reader
 from importlib.resources import files
 
@@ -118,3 +117,27 @@ class StationList(dict):
         for snum in self.keys():
             line = self.ansi_colorized_line(snum)
             print(line)
+
+
+def sl_parse_args():
+    parser = ArgumentParser()
+    subp = parser.add_subparsers()
+    url_cmd = subp.add_parser("print-stations")
+    url_cmd.add_argument("--urls", action="store_true")
+    url_cmd.add_argument("--nonstandard-ports", action="store_true")
+
+    parsed = parser.parse_args()
+    return parsed
+
+
+def station_list_main():
+    config = sl_parse_args()
+    station_list = StationList()
+    if config.urls:
+        ignore_ports = []
+        if config.nonstandard_ports:
+            ignore_ports = [80, 443, None]
+        for _, station_entry in station_list.items():
+            url = station_entry.url
+            if station_entry.port not in ignore_ports:
+                print(url)
