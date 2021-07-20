@@ -34,6 +34,10 @@ class StationEntry:
     def url(self):
         return str(self._url)
 
+    @property
+    def port(self):
+        return self._url.parsed.port
+
     def ansi_colorized(self):
         c2 = ANSI_YELO
         c3 = ANSI_DK_ORNG
