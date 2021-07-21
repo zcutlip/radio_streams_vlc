@@ -33,7 +33,7 @@ class VLCShellScript:
     def _locate_vlc_radio(self):
         script_path = None
 
-        for user_bool in [True, False]:
+        for user_bool in [False, True]:
             script_dir = get_setuptools_script_dir(user=user_bool)
             script_path = os.path.join(script_dir, "vlc-radio")
             if os.path.exists(script_path):
