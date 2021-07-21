@@ -3,6 +3,7 @@ import os
 from importlib.resources import files
 
 from . import data
+from . import __version__ as chill_streams_version
 from .script_path import get_setuptools_script_dir
 from .vlc import VLCLocator, VLCException
 
@@ -54,8 +55,15 @@ class VLCShellScript:
         os.makedirs(location, exist_ok=True, mode=0o755)
         script_path = os.path.join(location, "vlc-radio.sh")
         vlc_dir = os.path.dirname(self._vlc_path)
-        radio_cmd = f"{self._vlc_radio_path} \"$@\""
+        radio_cmd = '$_VLC_RADIO_PATH "$@"'
         script_lines = [
+            "",
+            "",
+            "# overwrite default _VLC_RADIO_PATH",
+            f"_CHILL_STREAMS_VERSION={chill_streams_version}",
+            f"_VLC_RADIO_PATH={self._vlc_radio_path}",
+            "",
+            "update_script && echo_sleep \"Restarting\" 1 && cleanup && exec \"$0\" \"$@\"",
             "",
             "export PATH=\"${{PATH}}\":{}".format(vlc_dir),
             "",
