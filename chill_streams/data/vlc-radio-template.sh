@@ -54,13 +54,18 @@ reverse_kill(){
     done
 }
 
-rm_pidfile(){
-    # https://stackoverflow.com/questions/360201/how-do-i-kill-background-processes-jobs-when-my-shell-script-exits/2173421#2173421
+cleanup(){
     trap - TERM INT EXIT
     if [ "$(read_pid)" = $$ ];
     then
         rm "$PIDFILE"
     fi
+    # always succeed
+    return 0
+}
+
+rm_pidfile(){
+    cleanup
     ps -g $$
     reverse_kill $SELFPID
     reset
