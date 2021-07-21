@@ -4,6 +4,22 @@ PIDDIR="$HOME/.local/var/"
 PIDFILE="$PIDDIR/vlc-radio.pid"
 SELFPID=$$
 
+
+echo_sleep(){
+    if [ $# -ne 2 ];
+    then
+        return 1
+    fi
+    echo "$1"
+    if [ "$DEBUG" == "1" ];
+    then
+        sleep $2
+    fi
+    return 0
+
+}
+
+
 write_pid(){
     mkdir -p "$PIDDIR"
     if [ -f "$PIDFILE" ];
