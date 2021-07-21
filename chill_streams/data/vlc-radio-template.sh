@@ -91,6 +91,22 @@ rm_pidfile(){
     reset
 }
 
+update_script(){
+    _ret=1
+    echo_sleep "Checking if script needs updating" 1
+    if [ "$_CHILL_STREAMS_VERSION" != "$($_VLC_RADIO_PATH --bare-version)" ];
+    then
+        echo "Updating bootstrap script"
+        "$_VLC_RADIO_PATH" --write-shell-script
+        _ret=$?
+        echo_sleep "Done" 1
+        return $_ret
+    else
+        echo "Bootstrap script does not need updating"
+        return $_ret
+    fi
+}
+
 kill_old || exit $?
 write_pid || exit $?
 
