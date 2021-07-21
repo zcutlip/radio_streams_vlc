@@ -4,6 +4,10 @@ PIDDIR="$HOME/.local/var/"
 PIDFILE="$PIDDIR/vlc-radio.pid"
 SELFPID=$$
 
+# these get overwritten later
+_VLC_RADIO_PATH=""
+_CHILL_STREAMS_VERSION=""
+
 
 echo_sleep(){
     if [ $# -ne 2 ];
