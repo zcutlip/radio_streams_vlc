@@ -65,7 +65,7 @@ class VLCShellScript:
             "",
             "update_script && echo_sleep \"Restarting\" 1 && cleanup && exec \"$0\" \"$@\"",
             "",
-            "export PATH=\"${{PATH}}\":{}".format(vlc_dir),
+            f"export PATH=\"${{PATH}}\":{vlc_dir}",
             "",
             radio_cmd,
             ""
