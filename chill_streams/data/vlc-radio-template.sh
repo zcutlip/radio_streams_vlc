@@ -84,7 +84,7 @@ cleanup(){
     return 0
 }
 
-rm_pidfile(){
+cleanup_and_self_terminate(){
     cleanup
     ps -g $$
     reverse_kill $SELFPID
@@ -101,16 +101,16 @@ update_script(){
         _ret=$?
         echo_sleep "Done" 1
         return $_ret
-    else
-        echo "Bootstrap script does not need updating"
-        return $_ret
     fi
+    echo "Bootstrap script does not need updating"
+    return $_ret
+
 }
 
 kill_old || exit $?
 write_pid || exit $?
 
 # Trapping TERM causes us to never exit for some reason
-# trap rm_pidfile TERM
-trap rm_pidfile INT
-trap rm_pidfile EXIT
+# trap cleanup_and_self_terminate TERM
+trap cleanup_and_self_terminate INT
+trap cleanup_and_self_terminate EXIT
