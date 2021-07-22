@@ -59,7 +59,7 @@ class VLCShellScript:
         script_lines = [
             "",
             "",
-            "# overwrite default _VLC_RADIO_PATH",
+            "# override default _VLC_RADIO_PATH",
             f"_CHILL_STREAMS_VERSION={chill_streams_version}",
             f"_VLC_RADIO_PATH={self._vlc_radio_path}",
             "",

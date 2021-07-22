@@ -4,7 +4,7 @@ PIDDIR="$HOME/.local/var/"
 PIDFILE="$PIDDIR/vlc-radio.pid"
 SELFPID=$$
 
-# these get overwritten later
+# these get overridden later
 _VLC_RADIO_PATH=""
 _CHILL_STREAMS_VERSION=""
 
