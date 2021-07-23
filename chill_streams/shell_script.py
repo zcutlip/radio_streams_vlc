@@ -58,11 +58,14 @@ class VLCShellScript:
         radio_cmd = '$_VLC_RADIO_PATH "$@"'
         script_lines = [
             "",
+            "# We need to export PATH before doing anything else",
+            "# don't put any lines above this",
             f"export PATH=\"${{PATH}}\":{vlc_dir}",
             "",
             "# override default _VLC_RADIO_PATH",
-            f"_CHILL_STREAMS_VERSION={chill_streams_version}",
             f"_VLC_RADIO_PATH={self._vlc_radio_path}",
+            "# override default _CHILL_STREAMS_VERSION",
+            f"_CHILL_STREAMS_VERSION={chill_streams_version}",
             "",
             "update_script && echo_sleep \"Restarting\" 1 && cleanup && exec \"$0\" \"$@\"",
             "",
