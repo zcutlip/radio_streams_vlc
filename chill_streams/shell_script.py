@@ -1,9 +1,9 @@
 import os
 
-from importlib.resources import files
 
 from . import data
 from . import __version__ as chill_streams_version
+from .pkg_resources import pkgfiles
 from .script_path import get_setuptools_script_dir
 from .vlc import VLCLocator, VLCException
 
@@ -45,7 +45,7 @@ class VLCShellScript:
 
     def _read_template(self):
         template = ""
-        with files(data).joinpath(SCRIPT_TEMPLATE).open("r") as _file:
+        with pkgfiles(data).joinpath(SCRIPT_TEMPLATE).open("r") as _file:
             template = _file.read()
         return template
 

@@ -1,7 +1,7 @@
 import re
 from argparse import ArgumentParser
 from csv import reader
-from importlib.resources import files
+from .pkg_resources import pkgfiles
 
 from . import data
 from .url import URL
@@ -90,7 +90,7 @@ class StationList(dict):
 
     def _populate_stations(self, substring, first_match: bool):
         substring = self._collapse_string(substring)
-        with files(data).joinpath(DEFAULT_STATIONS_CSV).open("r") as _file:
+        with pkgfiles(data).joinpath(DEFAULT_STATIONS_CSV).open("r") as _file:
             _reader = reader(_file)
             for number, csv_record in enumerate(_reader, 1):
                 name = csv_record[0]

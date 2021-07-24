@@ -1,8 +1,8 @@
-from importlib.resources import files
 import urllib
 from pysingleton import PySingleton
 
 from . import data
+from .pkg_resources import pkgfiles
 
 """
 HTTPS upgrading
@@ -23,7 +23,7 @@ class HTTPSDomainList(list, metaclass=PySingleton):
 
     def __init__(self):
         super().__init__()
-        with files(data).joinpath(self.HTTPS_FILE).open("r") as _file:
+        with pkgfiles(data).joinpath(self.HTTPS_FILE).open("r") as _file:
             line: str
             for line in _file.readlines():
                 if line.startswith("#"):
