@@ -24,10 +24,12 @@ setup(
             "sltool=chill_streams.cli:sl_main"
         ],
     },
-    # require python >= 3.9 due to importlib.resources.files
+
     python_requires=">=3.8",
     install_requires=[
+        # importlib.resources.files requires python >=3.9
         "python-singleton-metaclasses",
+        # if python 3.8, need to install 3rd importlib-resources
         "importlib-resources>=5.2.0; python_version<'3.9'"
         ],
     package_data={"chill_streams": ["data/*"]},
