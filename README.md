@@ -12,6 +12,19 @@ This project provides three things:
 
 ## Installation
 
+### Requirements
+
+- OS:
+  - Probably most modern (reasonable) Linux distros, but late Ubuntu releases are known to work
+  - Late macOS versions (tested on macOS 11.4 with up-to-date homebrew installed)
+  - Windows probably won't work (but might be easily made to, let me know)
+- Python >= 3.8 (3.9 preferred)
+- VLC, with the `vlc` command line utility on your `$PATH` (the homebrew VLC cask on macOS sets this up for you)
+
+> Note: VLC on Apple Silicon macOS doesn't support ncurses mode for some reason. I'm pretty sure it's a bug, but I haven't filed one yet. Run with `--gui`, or install the x86 version
+
+### Installation, but for real this time
+
 You can install directly from GitHub:
 
 `pip install --user git+https://github.com/zcutlip/chill_streams.git`
@@ -67,7 +80,7 @@ If you just want the first match (e.g., "groove salad" not "groove salad classic
 
 ### Bootstrap Script
 
-You can use the `--write-shell-script` option to write a shell script that will boostrap `vlc-radio` in minimal environments. This is useful, for example, to create a dedicated terminal profile that just runs `vlc-radio` with specific station. Since no shell gets initialized, `$PATH` may not be set, and the location of VLC may not be known.
+You can use the `--write-shell-script` option to write a shell script that will boostrap `vlc-radio` for use in minimal environments. This is useful, for example, to create a dedicated terminal profile that just runs `vlc-radio` with specific station. Since no shell gets initialized, `$PATH` may not be set, and the location of VLC may not be known.
 
 Below is such a profile in iTerm2:
 
