@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "vlc-radio loop",
+            "type": "python",
+            "request": "launch",
+            "module": "chill_streams.cli",
+            "args": ["1", "--loop"]
+        },
+        {
+            "name": "Python: setup.py install",
+            "type": "python",
+            "request": "launch",
+            "program": "setup.py",
+            "console": "integratedTerminal",
+            "args": [
+                "install",
+                "--user",
+                "--prefix="
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "write shell script",
+            "type": "python",
+            "request": "launch",
+            "module": "chill_streams.cli",
+            "args": [
+                "--write-shell-script"
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "vlc-radio 1",
+            "type": "python",
+            "request": "launch",
+            "module": "chill_streams.cli",
+            "args": [
+                "1"
+            ],
+            "justMyCode": false
+        }
+    ]
+}
