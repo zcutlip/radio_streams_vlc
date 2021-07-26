@@ -71,26 +71,34 @@ def station_selection(options):
         except ValueError:
             station_text = options.station
 
-    station_list = StationList(substring=station_text, first_match=options.first_match)
-    entry: StationEntry = station_list.match
+    go_again = True
+    while go_again:
+        go_again = False
+        station_list = StationList(substring=station_text, first_match=options.first_match)
+        entry: StationEntry = station_list.match
 
-    if not entry:
-        if station_num < 1:
-            station_list.print_menu()
-            inp = input('Enter item number: ')
-            if inp in ['Q', 'q']:
-                return 0
-            station_num = int(inp)
-            entry = station_list[station_num]
-        else:
-            entry = station_list[station_num]
+        if not entry:
+            if station_num < 1:
+                station_list.print_menu()
+                inp = input('Enter item number: ')
+                if inp in ['Q', 'q']:
+                    return 0
+                station_num = int(inp)
+                entry = station_list[station_num]
+            else:
+                entry = station_list[station_num]
+        station_text = ""
+        station_num = -1
 
-    curses = not options.gui
+        curses = not options.gui
 
-    vlc = VLC(entry, ncurses=curses)
-    _, ret = vlc.run()
-    if ret != 0:
-        print(f"Failed to run {vlc.location}", file=sys.stderr)
+        vlc = VLC(entry, ncurses=curses)
+        _, ret = vlc.run()
+        if ret != 0:
+            print(f"Failed to run {vlc.location}", file=sys.stderr)
+            break
+        if options.loop:
+            go_again = True
 
     return ret
 
