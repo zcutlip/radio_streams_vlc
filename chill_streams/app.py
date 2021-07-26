@@ -28,6 +28,11 @@ def vlc_parse_args():
         action="store_true"
     )
     parser.add_argument(
+        "-l", "--loop",
+        help="Loop mode: Return to station menu when player terminates (q to quit completely)",
+        action="store_true"
+    )
+    parser.add_argument(
         "--gui",
         help="Disable ncurses interface, run VLC in GUI mode",
         action="store_true",
