@@ -14,6 +14,10 @@ ANSI_DK_ORNG = '\x1b[38;2;220;118;51m'  # dark orange
 ANSI_RESET = '\x1b[0m'  # reset text format to default
 
 
+class StationListParseException(Exception):
+    pass
+
+
 class StationEntry:
 
     def __init__(self, name, description, url):
