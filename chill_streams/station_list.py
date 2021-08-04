@@ -96,6 +96,9 @@ class StationList(dict):
         result = result.lower()
         return result
 
+    def has_station_num(self, station_num):
+        return station_num in self.keys()
+
     def parse_csv_record(self, csv_record: list):
         try:
             name = csv_record[0]
