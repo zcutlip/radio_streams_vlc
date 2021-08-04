@@ -42,8 +42,12 @@ class VLC(CMD):
     def __init__(self, entry: StationEntry, ncurses: bool = True, vlc_path: str = None, extra_args: List[str] = []):
         self.entry = entry
         args = [entry.url]
+        if entry.is_video:
+            ncurses = False
         if ncurses:
             args.extend(["--intf", "ncurses"])
+        else:
+            args.extend(["--no-video-title-show", "--meta-title", entry.name])
         super().__init__(args)
 
         if not vlc_path:
