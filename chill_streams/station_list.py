@@ -20,10 +20,11 @@ class StationListParseException(Exception):
 
 class StationEntry:
 
-    def __init__(self, name, description, url):
+    def __init__(self, name, description, url, is_video):
         self._name = name
         self._description = description
         self._url = URL(url)
+        self._is_video = is_video
 
     @property
     def name(self):
@@ -36,6 +37,10 @@ class StationEntry:
     @property
     def url(self):
         return str(self._url)
+
+    @property
+    def is_video(self):
+        return self._is_video
 
     @property
     def port(self):
