@@ -82,6 +82,10 @@ class StationList(dict):
             _match = self[num]
         return _match
 
+    @property
+    def last_idx(self):
+        return self._starting_idx + len(self) - 1
+
     def _collapse_string(self, strarg):
         """
         Collapse all whitespace out of a string,
