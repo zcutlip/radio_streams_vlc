@@ -12,6 +12,7 @@ from .ascii_art import get_ascii_art
 from .shell_script import VLCShellScript, VLCShellScriptException
 from .station_list import StationEntry, StationList
 from .version import CSAbout
+from .video_streams import VideoStreamList, VideoStreamDependencyException
 from .vlc import VLC
 
 
@@ -75,18 +76,38 @@ def station_selection(options):
     while go_again:
         go_again = False
         station_list = StationList(substring=station_text, first_match=options.first_match)
-        entry: StationEntry = station_list.match
+        video_list = {}
+        entry: StationEntry = None
+        if station_list.match:
+            entry = station_list.match
+        elif station_list.has_station_num(station_num):
+            entry = station_list[station_num]
+        else:
+            idx = station_list.last_idx + 1
+            try:
+                # Only create the video stream list if we need to, since it
+                # has to hit twitch.tv to query streams
+                video_list = VideoStreamList(substring=station_text, first_match=options.first_match, starting_idx=idx)
+                if video_list.has_station_num(station_num):
+                    entry = video_list[station_num]
+                else:
+                    entry = video_list.match
+            except VideoStreamDependencyException:
+                pass
 
         if not entry:
-            if station_num < 1:
-                station_list.print_menu()
-                inp = input('Enter item number [\'q\' to quit]: ')
-                if inp in ['Q', 'q']:
-                    return 0
-                station_num = int(inp)
-                entry = station_list[station_num]
-            else:
-                entry = station_list[station_num]
+            all_stations = dict(station_list)
+            all_stations.update(video_list)
+
+            station_list.print_menu()
+            if video_list:
+                video_list.print_menu()
+            inp = input('Enter item number [\'q\' to quit]: ')
+            if inp in ['Q', 'q']:
+                return 0
+            station_num = int(inp)
+            entry = all_stations[station_num]
+
         station_text = ""
         station_num = -1
 
