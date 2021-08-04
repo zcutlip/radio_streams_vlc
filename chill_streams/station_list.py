@@ -47,6 +47,7 @@ class StationEntry:
 
 
 class StationList(dict):
+    LIST_NAME = "Streaming Audio Channels"
 
     def __init__(self, substring="", first_match=False):
         super().__init__()
@@ -113,7 +114,25 @@ class StationList(dict):
         line = f'{c1}{number:>2}{res}  {colorized_entry}'
         return line
 
+    def print_header(self):
+        top_bottom = "=" * (len(self.LIST_NAME) + 4)
+        # ============================
+        # *                          *
+        # * Streaming Audio Channels *
+        # *                          *
+        # ============================
+        lines = [
+            top_bottom,
+            "*" + " " * (len(top_bottom) - 2) + "*",
+            "* " + self.LIST_NAME + " *",
+            "*" + " " * (len(top_bottom) - 2) + "*",
+            top_bottom
+        ]
+        for line in lines:
+            print(line)
+
     def print_menu(self):
+        self.print_header()
         for snum in self.keys():
             line = self.ansi_colorized_line(snum)
             print(line)
