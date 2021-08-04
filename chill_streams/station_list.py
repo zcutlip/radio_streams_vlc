@@ -49,8 +49,9 @@ class StationEntry:
 class StationList(dict):
     LIST_NAME = "Streaming Audio Channels"
 
-    def __init__(self, substring="", first_match=False):
+    def __init__(self, substring="", first_match=False, starting_idx=1):
         super().__init__()
+        self._starting_idx = starting_idx
         if not substring:
             # first match doesn't make sense if substring is emtpy string
             first_match = False
