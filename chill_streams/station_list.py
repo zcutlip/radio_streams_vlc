@@ -48,6 +48,8 @@ class StationEntry:
 
 class StationList(dict):
     LIST_NAME = "Streaming Audio Channels"
+    STATION_CSV = DEFAULT_STATIONS_CSV
+    VIDEO_STREAMS = False
 
     def __init__(self, substring="", first_match=False, starting_idx=1):
         super().__init__()
