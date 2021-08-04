@@ -12,25 +12,22 @@
             "args": ["1", "--loop"]
         },
         {
-            "name": "Python: setup.py install",
-            "type": "python",
-            "request": "launch",
-            "program": "setup.py",
-            "console": "integratedTerminal",
-            "args": [
-                "install",
-                "--user",
-                "--prefix="
-            ],
-            "justMyCode": false
-        },
-        {
             "name": "write shell script",
             "type": "python",
             "request": "launch",
             "module": "chill_streams.cli",
             "args": [
                 "--write-shell-script"
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "vlc-radio 95",
+            "type": "python",
+            "request": "launch",
+            "module": "chill_streams.cli",
+            "args": [
+                "95"
             ],
             "justMyCode": false
         },
@@ -42,6 +39,25 @@
             "args": [
                 "1"
             ],
+            "justMyCode": false
+        },
+        {
+            "name": "vlc-radio groovesalad",
+            "type": "python",
+            "request": "launch",
+            "module": "chill_streams.cli",
+            "args": [
+                "-f",
+                "groovesalad"
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "vlc-radio no args",
+            "type": "python",
+            "request": "launch",
+            "module": "chill_streams.cli",
+            "args": [],
             "justMyCode": false
         }
     ]
