@@ -61,7 +61,7 @@ class StationList(dict):
             # If we're doing a substring match, we need to set the try_again flag
             # if not, we shouldn't try again
             try_again = len(substring) > 0
-            self._populate_stations(substring, first_match)
+            self._populate_stations(substring, starting_idx, first_match)
             if len(self):
                 # found at least one substring match (or no substring was provided)
                 break
