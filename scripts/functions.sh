@@ -11,9 +11,9 @@ quit(){
     exit $1
 }
 
-branch_is_master(){
+branch_is_master_or_main(){
     local branch=$(git rev-parse --abbrev-ref HEAD)
-    if [ $branch == "master" ];
+    if [ $branch == "master" ] || [ $branch == "main" ];
     then
         return $SUCCESS;
     else
@@ -54,7 +54,7 @@ prompt_yes_no(){
     read -p "$prompt_string [Y/n] " response
 
     case $response in
-    [yY][eE][sS]|[yY]) 
+    [yY][eE][sS]|[yY])
         return $SUCCESS
         ;;
         *)

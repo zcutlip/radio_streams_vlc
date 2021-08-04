@@ -2,7 +2,7 @@
 
 source "$(dirname $0)"/functions.sh
 
-if ! branch_is_master;
+if ! branch_is_master_or_main;
 then
     quit "Attempting to tag from branch $branch. Check out 'master' first." 1
 fi
