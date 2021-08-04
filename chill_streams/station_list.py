@@ -90,18 +90,32 @@ class StationList(dict):
         result = result.lower()
         return result
 
-    def _populate_stations(self, substring, first_match: bool):
+    def parse_csv_record(self, csv_record: list):
+        try:
+            name = csv_record[0]
+            description = csv_record[1]
+            url = csv_record[2]
+        except IndexError as e:
+            raise StationListParseException("Unable to parse name, description, and URL from CSV record") from e
+        return (name, description, url)
+
+    def _populate_stations(self, substring, starting_idx, first_match: bool):
         substring = self._collapse_string(substring)
-        with pkgfiles(data).joinpath(DEFAULT_STATIONS_CSV).open("r") as _file:
+        with pkgfiles(data).joinpath(self.STATION_CSV).open("r") as _file:
             _reader = reader(_file)
-            for number, csv_record in enumerate(_reader, 1):
-                name = csv_record[0]
+            for number, csv_record in enumerate(_reader, starting_idx):
+                try:
+                    name, description, url = self.parse_csv_record(csv_record)
+                except StationListParseException:
+                    print(f"failed to parse {csv_record}")
+                    continue
+                if name.startswith("?"):
+                    continue
+
                 _name = self._collapse_string(name)
                 if substring not in _name:
                     continue
-                description = csv_record[1]
-                url = csv_record[2]
-                entry = StationEntry(name, description, url)
+                entry = StationEntry(name, description, url, self.VIDEO_STREAMS)
                 self[number] = entry
                 if first_match:
                     break
