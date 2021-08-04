@@ -20,14 +20,21 @@ This project provides three things:
   - Windows probably won't work (but might be easily made to, let me know)
 - Python >= 3.8 (3.9 preferred)
 - VLC, with the `vlc` command line utility on your `$PATH` (the homebrew VLC cask on macOS sets this up for you)
+- In order to stream Twitch video channels, the `streamlinks` package is required (see installation below)
 
 > Note: VLC on Apple Silicon macOS doesn't support ncurses mode for some reason. I'm pretty sure it's a bug, but I haven't filed one yet. Run with `--gui`, or install the x86 version
+
+> Note: Twitch streams from DEF CON music are possible if `streamlinks` is installed, but this is not a hard requirement. If it is not installed video channels will not be presented in the menu or available for playback.
 
 ### Installation, but for real this time
 
 You can install directly from GitHub:
 
-`pip install --user git+https://github.com/zcutlip/chill_streams.git`
+```bash
+pip install --user git+https://github.com/zcutlip/chill_streams.git
+# Optional support for Twitch streams
+pip install --user streamlinks
+```
 
 ## CLI utility: `vlc-radio`
 
