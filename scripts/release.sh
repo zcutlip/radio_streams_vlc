@@ -34,11 +34,11 @@ generate_dist(){
 version=$(current_version);
 
 generate_dist;
-# echo "About to post the following distribution files to pypi.org."
-# ls -1 dist/"$DISTRIBUTION_NAME"-$version.*
+echo "About to post the following distribution files to pypi.org."
+ls -1 dist/"$DISTRIBUTION_NAME"-$version.*
 
-# if prompt_yes_no;
-# then
-#     python3 -m twine upload dist/"$DISTRIBUTION_NAME"-$version*
-# fi
+if prompt_yes_no;
+then
+    python3 -m twine upload dist/"$DISTRIBUTION_NAME"-$version*
+fi
 
