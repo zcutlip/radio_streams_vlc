@@ -28,10 +28,10 @@ This project provides three things:
 
 ### Installation, but for real this time
 
-You can install directly from GitHub:
+You can install directly from PyPI:
 
 ```bash
-pip install --user git+https://github.com/zcutlip/chill_streams.git
+pip install --user Chill-Streams
 # Optional support for Twitch streams
 pip install --user streamlink
 ```
