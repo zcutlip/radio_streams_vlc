@@ -13,9 +13,9 @@ setup(
     description=about["__summary__"],
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author="",
-    author_email="",
-    url="TBD",
+    author="Zachary Cutlip",
+    author_email="uid000@gmail.com",
+    url="https://github.com/zcutlip/chill_streams",
     license="MIT",
     packages=find_packages(),
     entry_points={
