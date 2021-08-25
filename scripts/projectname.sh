@@ -1,1 +1,1 @@
-DISTRIBUTION_NAME="chill-streams"
+DISTRIBUTION_NAME="Chill_Streams"
