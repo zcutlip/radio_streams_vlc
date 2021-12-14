@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh -x -e
 
 quit(){
     if [ $# -gt 1 ];
@@ -9,11 +9,8 @@ quit(){
     exit $1
 }
 
-if [ ! -z "$VIRTUALENVWRAPPER_SCRIPT" ] && [ -f "$VIRTUALENVWRAPPER_SCRIPT" ];
+if [ -f "$DOTFILES"/virtualenvwrapper/virtualenvwrapper.rc ];
 then
-    . "$VIRTUALENVWRAPPER_SCRIPT"
-    mkvirtualenv -r ./dev-reqs.txt "sw_planet_tweets" || quit "Unable to make virtual environment." 1
-else
-    echo "Can't find virtualenvwrapper script"
-    exit 1
+    . "$DOTFILES"/virtualenvwrapper/virtualenvwrapper.rc
 fi
+mkvirtualenv -r ./dev-reqs.txt "chill_streams" || quit "Unable to make virtual environment." 1
