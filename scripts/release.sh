@@ -2,7 +2,8 @@
 DIRNAME="$(dirname $0)"
 
 # set DISTRIBUTION_NAME variable
-DISTRIBUTION_NAME="$(python3 setup.py --name)"
+SRC_DISTRIBUTION_NAME="$(python3 setup.py --name)"
+BDIST_NAME="$(echo $SRC_DISTRIBUTION_NAME | tr '\- ' _)"
 
 # utility functions
 source "$DIRNAME"/functions.sh
@@ -35,10 +36,10 @@ version=$(current_version);
 
 generate_dist;
 echo "About to post the following distribution files to pypi.org."
-ls -1 dist/"$DISTRIBUTION_NAME"-$version.*
+ls -1 dist/"$SRC_DISTRIBUTION_NAME"-$version.* dist/"$BDIST_NAME"-$version.*
 
 if prompt_yes_no;
 then
-    python3 -m twine upload dist/"$DISTRIBUTION_NAME"-$version*
+    python3 -m twine upload dist/"$SRC_DISTRIBUTION_NAME"-$version.* dist/"$BDIST_NAME"-$version.*
 fi
 
