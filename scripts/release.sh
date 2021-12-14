@@ -2,7 +2,7 @@
 DIRNAME="$(dirname $0)"
 
 # set DISTRIBUTION_NAME variable
-source "$DIRNAME"/projectname.sh
+DISTRIBUTION_NAME="$(python3 setup.py --name)"
 
 # utility functions
 source "$DIRNAME"/functions.sh
