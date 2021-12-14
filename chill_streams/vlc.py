@@ -1,3 +1,4 @@
+import glob
 import os
 import time
 
@@ -52,6 +53,8 @@ class VLCLocator(CMD):
         if loc:
             if not os.path.exists(loc):
                 loc = None
+            else:
+                loc = self._fix_exe_case(loc)
         if not loc:
             out: bytes
             ret: int
@@ -60,8 +63,9 @@ class VLCLocator(CMD):
             out = out.rstrip()
             if ret == 0:
                 loc = out
-            else:
-                raise VLCException(f"Can't locate VLC: {out}")
+                loc = self._fix_exe_case(loc)
+        if not loc:
+            raise VLCException("Can't locate VLC")
         return loc
 
     @property
