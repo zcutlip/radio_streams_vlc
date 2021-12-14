@@ -20,6 +20,33 @@ class VLCLocator(CMD):
         super().__init__(self.ARGS)
         self._location = self._locate()
 
+    def _fix_exe_case(self, location):
+        """
+        Case insensitive filesystems will allow is to execute VLC or vlc,
+        but things that match on process name, like AirFoil, look for the actual
+        process name
+        """
+        if not location:
+            raise Exception(f"no location: {location}")
+        exe_upper = os.path.basename(location).upper()
+        exe_lower = exe_upper.lower()
+        dirname = os.path.dirname(location)
+        dirglob = os.path.join(dirname, "*")
+        items = glob.glob(dirglob)
+
+        if location not in items:
+            # No idea what we started with, so lets just reset to lower case
+            location = os.path.join(dirname, exe_lower)
+
+        if location not in items:
+            # haven't found it yet, so lets try upper cse
+            location = os.path.join(dirname, exe_upper)
+
+        if location not in items:
+            # nothing worked, so something has gone wrong, set to None
+            location = None
+        return location
+
     def _locate(self) -> str:
         loc = os.environ.get(self.VLC_PATH_ENV_VAR)
         if loc:
