@@ -1,3 +1,4 @@
+import os
 import time
 
 from typing import List, Tuple
@@ -11,16 +12,19 @@ class VLCException(Exception):
 
 
 class VLCLocator(CMD):
+    VLC_PATH_ENV_VAR = "VLC_PATH"
     CMD_NAME = "which"
     ARGS = ["vlc"]
 
     def __init__(self):
         super().__init__(self.ARGS)
-        self._location = None
+        self._location = self._locate()
 
-    @property
-    def location(self):
-        loc = self._location
+    def _locate(self) -> str:
+        loc = os.environ.get(self.VLC_PATH_ENV_VAR)
+        if loc:
+            if not os.path.exists(loc):
+                loc = None
         if not loc:
             out: bytes
             ret: int
@@ -29,10 +33,13 @@ class VLCLocator(CMD):
             out = out.rstrip()
             if ret == 0:
                 loc = out
-                self._location = loc
             else:
                 raise VLCException(f"Can't locate VLC: {out}")
         return loc
+
+    @property
+    def location(self):
+        return self._location
 
 
 class VLC(CMD):
