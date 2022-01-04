@@ -114,7 +114,8 @@ class StationList(dict):
             description = csv_record[1]
             url = csv_record[2]
         except IndexError as e:
-            raise StationListParseException("Unable to parse name, description, and URL from CSV record") from e
+            raise StationListParseException(
+                "Unable to parse name, description, and URL from CSV record") from e
         return (name, description, url)
 
     def _populate_stations(self, substring, starting_idx, first_match: bool):
@@ -133,7 +134,8 @@ class StationList(dict):
                 _name = self._collapse_string(name)
                 if substring not in _name:
                     continue
-                entry = StationEntry(name, description, url, self.VIDEO_STREAMS)
+                entry = StationEntry(
+                    name, description, url, self.VIDEO_STREAMS)
                 self[number] = entry
                 if first_match:
                     break

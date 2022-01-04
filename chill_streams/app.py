@@ -75,7 +75,8 @@ def station_selection(options):
     go_again = True
     while go_again:
         go_again = False
-        station_list = StationList(substring=station_text, first_match=options.first_match)
+        station_list = StationList(
+            substring=station_text, first_match=options.first_match)
         video_list = {}
         entry: StationEntry = None
         if station_list.match:
@@ -87,7 +88,8 @@ def station_selection(options):
             try:
                 # Only create the video stream list if we need to, since it
                 # has to hit twitch.tv to query streams
-                video_list = VideoStreamList(substring=station_text, first_match=options.first_match, starting_idx=idx)
+                video_list = VideoStreamList(
+                    substring=station_text, first_match=options.first_match, starting_idx=idx)
                 if video_list.has_station_num(station_num):
                     entry = video_list[station_num]
                 else:
