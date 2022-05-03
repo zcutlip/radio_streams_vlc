@@ -32,7 +32,8 @@ branch_is_clean(){
 }
 
 current_version() {
-    local version="$(python ./setup.py --version)" || quit "Unable to detect package version" $?
+    local version
+    version="$(python ./setup.py --version)" || quit "Unable to detect package version" $?
     printf "%s" "$version"
 }
 

@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh -xe
 DIRNAME="$(dirname $0)"
 
 # set DISTRIBUTION_NAME variable
