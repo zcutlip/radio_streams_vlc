@@ -5,6 +5,8 @@ Shift + M --> meta-info; q --> quit'''
 import argparse
 import sys
 
+from . import logging
+
 from argparse import ArgumentParser
 
 
@@ -56,6 +58,8 @@ def vlc_parse_args():
         action='version',
         version=CSAbout().version
     )
+    parser.add_argument(
+        "--debug", help="Enable debug logging", action='store_true')
 
     parsed = parser.parse_args()
     return parsed
@@ -128,6 +132,9 @@ def station_selection(options):
 
 def vlc_main():
     options = vlc_parse_args()
+    if options.debug:
+        logging.enable_debug_logging()
+
     if options.write_shell_script:
         try:
             vlcs = VLCShellScript()
