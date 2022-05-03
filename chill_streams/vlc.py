@@ -4,6 +4,7 @@ import time
 
 from typing import List, Tuple
 
+from . import logging
 from .cmd import CMD
 from .station_list import StationEntry
 
@@ -78,6 +79,7 @@ class VLC(CMD):
     PAUSE_SECS = 2.0
 
     def __init__(self, entry: StationEntry, ncurses: bool = True, vlc_path: str = None, extra_args: List[str] = []):
+        logger = logging.get_logger(__name__)
         self.entry = entry
         args = [entry.url]
         if entry.is_video:
@@ -86,7 +88,7 @@ class VLC(CMD):
             args.extend(["--intf", "ncurses"])
         else:
             args.extend(["--no-video-title-show", "--meta-title", entry.name])
-        super().__init__(args)
+        super().__init__(args, logger=logger)
 
         if not vlc_path:
             self._location = self._find_vlc()
