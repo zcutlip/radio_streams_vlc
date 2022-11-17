@@ -53,6 +53,16 @@
             "justMyCode": false
         },
         {
+            "name": "vlc-radio chillmoonphase",
+            "type": "python",
+            "request": "launch",
+            "module": "chill_streams.cli",
+            "args": [
+                "chillmoonphase"
+            ],
+            "justMyCode": false
+        },
+        {
             "name": "vlc-radio no args",
             "type": "python",
             "request": "launch",
