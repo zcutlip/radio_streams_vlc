@@ -32,5 +32,8 @@ setup(
         # if python 3.8, need to install 3rd importlib-resources
         "importlib-resources>=5.2.0; python_version<'3.9'"
     ],
+    extras_require={
+        'video-streams': ['streamlink']
+    },
     package_data={"chill_streams": ["data/*"]},
 )
