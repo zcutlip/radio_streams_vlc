@@ -89,10 +89,6 @@ If you just want the first match (e.g., "groove salad" not "groove salad classic
 
 ![first match](images/vlc-radio-groovesalad-first-match.gif)
 
-Some stations are live video streams, such as the Twitch streams for [DEF CON Music](https://www.twitch.tv/defcon_music) and [DEF CON Chillout Lounge](https://www.twitch.tv/defcon_chill). In order to stream these, be sure `streamlink` is installed via `pip` (see installation section above). When you choose one of these from the menu, VLC automaticaly runs in GUI mode.
-
-![video streams](images/vlc-radio-video-streams.gif)
-
 ### Bootstrap Script
 
 You can use the `--write-shell-script` option to write a shell script that will boostrap `vlc-radio` for use in minimal environments. This is useful, for example, to create a dedicated terminal profile that just runs `vlc-radio` with specific station. Since no shell gets initialized, `$PATH` may not be set, and the location of VLC may not be known.
