@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ "$DEBUG" = "1" ];
+then
+    set -x
+fi
+
 PIDDIR="$HOME/.local/var/"
 PIDFILE="$PIDDIR/vlc-radio.pid"
 SELFPID=$$
