@@ -15,9 +15,9 @@ echo_sleep(){
         return 1
     fi
     echo "$1"
-    if [ "$DEBUG" == "1" ];
+    if [ "$DEBUG" = "1" ];
     then
-        sleep $2
+        sleep "$2"
     fi
     return 0
 
@@ -63,13 +63,13 @@ kill_old(){
 
 reverse_kill(){
     pid="$1"
-    ps -g $pid -o pid= | sort -r | while read p;
+    ps -g "$pid" -o pid= | sort -r | while read -r p;
     do
-        if [ $p != $SELFPID ];
+        if [ "$p" != $SELFPID ];
         then
             # for some reason, unless we explicitly specify -INT
             # chld processes don't go down
-            kill -INT $p
+            kill -INT "$p"
         fi
     done
 }
