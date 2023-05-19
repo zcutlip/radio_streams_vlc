@@ -4,17 +4,14 @@ Shift + M --> meta-info; q --> quit'''
 
 import argparse
 import sys
-
-from . import logging
-
 from argparse import ArgumentParser
 
-
+from . import logging
 from .ascii_art import get_ascii_art
 from .shell_script import VLCShellScript, VLCShellScriptException
 from .station_list import StationEntry, StationList
 from .version import CSAbout
-from .video_streams import VideoStreamList, VideoStreamDependencyException
+from .video_streams import VideoStreamDependencyException, VideoStreamList
 from .vlc import VLC
 
 
