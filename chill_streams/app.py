@@ -5,6 +5,7 @@ Shift + M --> meta-info; q --> quit'''
 import argparse
 import sys
 from argparse import ArgumentParser
+from typing import Optional
 
 from . import logging
 from .ascii_art import get_ascii_art
@@ -67,19 +68,19 @@ def station_selection(options):
     '''Play selected internet radio station.'''
     station_text = ""
     station_num = -1
+    ret = -1
     if options.station:
         try:
             station_num = int(options.station)
         except ValueError:
             station_text = options.station
-
     go_again = True
     while go_again:
         go_again = False
         station_list = StationList(
             substring=station_text, first_match=options.first_match)
-        video_list = {}
-        entry: StationEntry = None
+        video_list: Optional[VideoStreamList] = None
+        entry: Optional[StationEntry] = None
         if station_list.match:
             entry = station_list.match
         elif station_list.has_station_num(station_num):
@@ -99,11 +100,10 @@ def station_selection(options):
                 pass
 
         if not entry:
-            all_stations = dict(station_list)
-            all_stations.update(video_list)
-
             station_list.print_menu()
+            all_stations = dict(station_list)
             if video_list:
+                all_stations.update(video_list)
                 video_list.print_menu()
             inp = input('Enter item number [\'q\' to quit]: ')
             if inp in ['Q', 'q']:
@@ -116,13 +116,16 @@ def station_selection(options):
 
         curses = not options.gui
 
-        vlc = VLC(entry, ncurses=curses)
-        _, ret = vlc.run()
-        if ret != 0:
-            print(f"Failed to run {vlc.location}", file=sys.stderr)
-            break
-        if options.loop:
-            go_again = True
+        if entry:
+            vlc = VLC(entry, ncurses=curses)
+            _, ret = vlc.run()
+            if ret != 0:
+                print(f"Failed to run {vlc.location}", file=sys.stderr)
+                break
+            if options.loop:
+                go_again = True
+        else:
+            print("Station not found")
 
     return ret
 
