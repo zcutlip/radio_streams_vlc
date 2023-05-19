@@ -122,7 +122,9 @@ def station_selection(options):
         if entry:
             if options.print_url:
                 ret = 0
-                print(f"{entry.name}: {entry.url}")
+                print("")
+                print(f"{entry.ansi_colorized()}:\n    {entry.url}")
+                print("")
             else:
                 vlc = VLC(entry, ncurses=curses)
                 _, ret = vlc.run()
