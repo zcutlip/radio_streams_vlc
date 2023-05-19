@@ -59,6 +59,9 @@ def vlc_parse_args():
     parser.add_argument(
         "--debug", help="Enable debug logging", action='store_true')
 
+    parser.add_argument(
+        "--print-url", "-U", help="Print station URL to console and exit", action="store_true")
+
     parsed = parser.parse_args()
     return parsed
 
@@ -117,13 +120,17 @@ def station_selection(options):
         curses = not options.gui
 
         if entry:
-            vlc = VLC(entry, ncurses=curses)
-            _, ret = vlc.run()
-            if ret != 0:
-                print(f"Failed to run {vlc.location}", file=sys.stderr)
-                break
-            if options.loop:
-                go_again = True
+            if options.print_url:
+                ret = 0
+                print(f"{entry.name}: {entry.url}")
+            else:
+                vlc = VLC(entry, ncurses=curses)
+                _, ret = vlc.run()
+                if ret != 0:
+                    print(f"Failed to run {vlc.location}", file=sys.stderr)
+                    break
+                if options.loop:
+                    go_again = True
         else:
             print("Station not found")
 
