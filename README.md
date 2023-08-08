@@ -24,20 +24,15 @@ This project provides three things:
 - VLC, with the `vlc` command line utility on your `$PATH` (the homebrew VLC cask on macOS sets this up for you)
   - Alternatively you may set `VLC_PATH` to point to a `vlc` executable:
   - e.g. `export VLC_PATH=~/Applications/VLC.app/Contents/MacOS/VLC`
-- In order to stream Twitch video channels, the `streamlink` package is required (see installation below)
 
 > Note: VLC on Apple Silicon macOS doesn't support ncurses mode for some reason. I'm pretty sure it's a bug, but I haven't filed one yet. Run with `--gui`, or install the x86 version
-
-> Note: Twitch streams from DEF CON music are possible if `streamlink` is installed, but this is not a hard requirement. If it is not installed video channels will not be presented in the menu or available for playback.
 
 ### Installation, but for real this time
 
 You can install directly from PyPI:
 
 ```bash
-pip install --user Chill-Streams
-# Optional support for Twitch streams
-pip install --user streamlink
+pip3 install --user Chill-Streams
 ```
 
 ## CLI utility: `vlc-radio`
