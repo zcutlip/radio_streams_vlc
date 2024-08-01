@@ -1,7 +1,8 @@
 import glob
 import os
+import platform
 import time
-
+from pathlib import Path
 from typing import List, Optional, Tuple
 
 from . import logging
@@ -102,7 +103,9 @@ class VLC(CMD):
 
     def run(self) -> Tuple[bytes, int]:
         self._display_and_pause(self.PAUSE_SECS)
-        return super().run()
+        run_tuple = super().run()
+        self._check_iterm(run_tuple[1])
+        return run_tuple
 
     def _display_and_pause(self, sec):
         print("")
@@ -111,6 +114,20 @@ class VLC(CMD):
         print("")
         print("")
         time.sleep(sec)
+
+    def _check_iterm(self, ret: int):
+        terminfo_path = Path("~/.terminfo/x").expanduser()
+        xterm_256 = False
+        if "xterm-256color" in os.getenv("TERM", ""):
+            xterm_256 = True
+        if ret != 0 and xterm_256 and "arm64" == platform.machine() and "Darwin" == platform.system():
+            if not terminfo_path.exists():
+                err_str = """
+                It appears you're using arm64 macOS, where VLC has a bug. You may need to run:
+                $ mkdir ~/.terminfo
+                $ ln -s /usr/share/terminfo/78 ~/.terminfo/x
+                """
+                self.logger.error(f"{err_str}")
 
     def _find_vlc(self):
         locator = VLCLocator()
