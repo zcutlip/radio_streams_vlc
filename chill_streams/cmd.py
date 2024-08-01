@@ -18,7 +18,8 @@ class CMD:
         argv = [self.CMD_NAME] + argv
         self.argv = argv
 
-    def run(self, capture_out=False, capture_err=False) -> Tuple[bytes, str]:
+    def run(self, capture_out=False, capture_err=False) -> Tuple[bytes, int]:
+        out: bytes
         cmd_str = shlex.join(self.argv)
         self.logger.debug(f"About to run: {cmd_str}")
         returncode = 0
