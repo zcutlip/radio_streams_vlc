@@ -4,6 +4,7 @@ flake8
 ipython
 pycodestyle
 pytest
+setuptools
 twine
 -r requirements.txt
 -e .
