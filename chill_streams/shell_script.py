@@ -4,7 +4,7 @@ import os
 from . import data
 from . import __version__ as chill_streams_version
 from .pkg_resources import pkgfiles
-from .script_path import get_setuptools_script_dir
+from .script_path import get_script_paths
 from .vlc import VLCLocator, VLCException
 
 
@@ -33,8 +33,8 @@ class VLCShellScript:
     def _locate_vlc_radio(self):
         script_path = None
 
-        for user_bool in [False, True]:
-            script_dir = get_setuptools_script_dir(user=user_bool)
+        script_dirs = get_script_paths()
+        for script_dir in script_dirs:
             script_path = os.path.join(script_dir, "vlc-radio")
             if os.path.exists(script_path):
                 break
