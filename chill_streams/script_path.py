@@ -1,31 +1,37 @@
-from setuptools import Distribution
-from setuptools.command.install import install
+import sysconfig
+from typing import Tuple, TypeAlias
+
+ScriptPathHome: TypeAlias = str
+ScriptPathUser: TypeAlias = str
+ScriptPathPrefix: TypeAlias = str
 
 
-class OnlyGetScriptPath(install):
+def get_script_paths() -> Tuple[ScriptPathHome, ScriptPathUser, ScriptPathPrefix]:
+    """
+    Get Python script installation paths
 
-    def finalize_options(self):
-        if self.distribution.user:
-            self.user = self.distribution.user
-            self.prefix = None
-        super().finalize_options()
+    virtualenv example:
+    - Home: /Users/zach/.virtualenvs/chill_streams/bin
+    - User: /Users/zach/Library/Python/3.12/bin
+    - prefix: /Users/zach/.virtualenvs/chill_streams/bin
 
-    def run(self):
-        # does not call install.run() by design
-        self.distribution.install_scripts = self.install_scripts
+    Non-virtualenv (homebrew python) example:
+    - Home: /opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12/bin
+    - User: /Users/zach/Library/Python/3.12/bin
+    - prefix: /opt/homebrew/bin
 
+    Returns
+    -------
+    Tuple[ScriptPathHome, ScriptPathUser, ScriptPathPrefix]
+        Tuple of script path strings for User, Home, and Prefix strings
+    """
 
-def get_setuptools_script_dir(user=False):
-    dist = Distribution({'cmdclass': {'install': OnlyGetScriptPath}})
-    dist.dry_run = True  # not sure if necessary, but to be safe
-    if user:
-        dist.user = True
-    else:
-        dist.user = False
-    dist.parse_config_files()
-    # install_opts["user"] = True
-    # install_opts["prefix"] = ""
-    command = dist.get_command_obj('install')
-    command.ensure_finalized()
-    command.run()
-    return dist.install_scripts
+    script_paths = []
+    scheme_keys = ["home", "user", "prefix"]
+    # scheme_keys: List[Literal["user", "home", "prefix"]] = ["user", "home", "prefix"]
+    for key in scheme_keys:
+        scheme = sysconfig.get_preferred_scheme(key)  # type: ignore
+        script_path = sysconfig.get_path("scripts", scheme)
+        script_paths.append(script_path)
+
+    return tuple(script_paths)
