@@ -2,7 +2,7 @@ import glob
 import os
 import time
 
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from . import logging
 from .cmd import CMD
@@ -57,10 +57,9 @@ class VLCLocator(CMD):
             else:
                 loc = self._fix_exe_case(loc)
         if not loc:
-            out: bytes
             ret: int
-            out, ret = self.run(capture_out=True, capture_err=True)
-            out = out.decode("utf-8")
+            out_bytes, ret = self.run(capture_out=True, capture_err=True)
+            out = out_bytes.decode("utf-8")
             out = out.rstrip()
             if ret == 0:
                 loc = out
@@ -78,7 +77,7 @@ class VLC(CMD):
     CMD_NAME = "vlc"
     PAUSE_SECS = 2.0
 
-    def __init__(self, entry: StationEntry, ncurses: bool = True, vlc_path: str = None, extra_args: List[str] = []):
+    def __init__(self, entry: StationEntry, ncurses: bool = True, vlc_path: Optional[str] = None, extra_args: List[str] = []):
         logger = logging.get_logger(__name__)
         self.entry = entry
         args = [entry.url]
@@ -101,7 +100,7 @@ class VLC(CMD):
     def location(self):
         return self._location
 
-    def run(self) -> Tuple[bytes, str]:
+    def run(self) -> Tuple[bytes, int]:
         self._display_and_pause(self.PAUSE_SECS)
         return super().run()
 
