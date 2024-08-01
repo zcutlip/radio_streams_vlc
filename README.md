@@ -25,7 +25,17 @@ This project provides three things:
   - Alternatively you may set `VLC_PATH` to point to a `vlc` executable:
   - e.g. `export VLC_PATH=~/Applications/VLC.app/Contents/MacOS/VLC`
 
-> Note: VLC on Apple Silicon macOS doesn't support ncurses mode for some reason. I'm pretty sure it's a bug, but I haven't filed one yet. Run with `--gui`, or install the x86 version
+> Note: VLC has a [bug](https://code.videolan.org/videolan/vlc/-/issues/26308) on Apple Silicon and ncurses is broken. Workarounds:
+> - **Recommended**: create a symlink inside `~/.terminfo`:
+> ```
+> % mkdir ~/.terminfo
+> % # if TERM=xterm-256color:
+> % ln -s /usr/share/terminfo/78 ~/.terminfo/x
+> % # if TERM=screen-256color:
+> % ln -s /usr/share/terminfo/73 ~/.terminfo/s
+> ```
+> - Install the x86-64 version
+> - Run with `--gui`, disabling ncurses
 
 ### Installation, but for real this time
 
