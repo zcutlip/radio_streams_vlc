@@ -116,16 +116,18 @@ class VLC(CMD):
         time.sleep(sec)
 
     def _check_iterm(self, ret: int):
-        terminfo_path = Path("~/.terminfo/x").expanduser()
-        xterm_256 = False
-        if "xterm-256color" in os.getenv("TERM", ""):
-            xterm_256 = True
-        if ret != 0 and xterm_256 and "arm64" == platform.machine() and "Darwin" == platform.system():
-            if not terminfo_path.exists():
+        terminfo_x_path = Path("~/.terminfo/x").expanduser()
+        terminfo_s_path = Path("~/.terminfo/s").expanduser()
+
+        if ret != 0 and "arm64" == platform.machine() and "Darwin" == platform.system():
+            if not terminfo_x_path.exists() or not terminfo_s_path.exists():
                 err_str = """
                 It appears you're using arm64 macOS, where VLC has a bug. You may need to run:
                 $ mkdir ~/.terminfo
+                $ # for TERM=xterm-256color:
                 $ ln -s /usr/share/terminfo/78 ~/.terminfo/x
+                $ # for TERM=screen-256color:
+                $ ln -s /usr/share/terminfo/73 ~/.terminfo/s
                 """
                 self.logger.error(f"{err_str}")
 
