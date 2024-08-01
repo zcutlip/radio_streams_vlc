@@ -6,14 +6,14 @@
     "configurations": [
         {
             "name": "vlc-radio loop",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "chill_streams.cli",
             "args": ["1", "--loop"]
         },
         {
             "name": "write shell script",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "chill_streams.cli",
             "args": [
@@ -23,7 +23,7 @@
         },
         {
             "name": "vlc-radio 95",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "chill_streams.cli",
             "args": [
@@ -33,7 +33,7 @@
         },
         {
             "name": "vlc-radio 1",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "chill_streams.cli",
             "args": [
@@ -43,7 +43,7 @@
         },
         {
             "name": "vlc-radio groovesalad",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "chill_streams.cli",
             "args": [
@@ -54,7 +54,7 @@
         },
         {
             "name": "vlc-radio chillmoonphase",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "chill_streams.cli",
             "args": [
@@ -64,7 +64,7 @@
         },
         {
             "name": "vlc-radio no args",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "chill_streams.cli",
             "args": [],
