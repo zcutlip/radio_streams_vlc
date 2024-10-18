@@ -1,5 +1,5 @@
 __title__ = "Chill-Streams"
-__version__ = "0.4.4.dev0"
+__version__ = "0.4.4"
 __summary__ = "Chill electronica streaming"
 
 """
