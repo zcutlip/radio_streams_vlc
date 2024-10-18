@@ -1,4 +1,4 @@
-import urllib
+import urllib.parse as urllib_parse
 from pysingleton import PySingleton
 
 from . import data
@@ -37,7 +37,7 @@ class HTTPSDomainList(list, metaclass=PySingleton):
 
 class URL:
     def __init__(self, url_string):
-        parsed = urllib.parse.urlparse(url_string)
+        parsed = urllib_parse.urlparse(url_string)
         domain_list = HTTPSDomainList()
         self.parsed = self._https_upgrade(parsed, domain_list)
 
@@ -58,4 +58,4 @@ class URL:
         return parsed_url
 
     def __str__(self):
-        return urllib.parse.urlunparse(self.parsed)
+        return urllib_parse.urlunparse(self.parsed)
